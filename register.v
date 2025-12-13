@@ -28,17 +28,17 @@ module RegisterFile (
         assign rd2_data = registers[rs2_addr];
     end
 
-    // --- Write Port (Sequential/Synchronous) ---
+
     always @(posedge clk) begin
         if (rst) begin
-            // Initialization/Reset - set all GPRs to zero
-            // (Only x1 to x31 truly need resetting as x0 is hardwired)
+            // resetting all the register values to 0.
+            // index = 0 is read-only and by default set to 32'b0
             for (int i = 1; i < 32; i = i + 1) begin
                 registers[i] <= 32'b0;
             end
         end 
         else if (we && (rd_addr != 5'b00000)) begin 
-            // Write condition: Write Enable is high AND the address is NOT x0 (0)
+
             registers[rd_addr] <= wd;
         end
     end
