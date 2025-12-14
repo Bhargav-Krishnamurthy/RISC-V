@@ -5,7 +5,7 @@ module RegisterFile (
     input  wire  [4:0] rs1_addr,    // Read Port 1 Address (0-31)
     output wire [31:0] rd1_data,    // Read Port 1 Data
     input  wire  [4:0] rs2_addr,    // Read Port 2 Address (0-31)
-    output wire [31:0] rd2_data     // Read Port 2 Data
+    output wire [31:0] rd2_data,     // Read Port 2 Data
     input  wire  [4:0] rd_addr,     // Write Port Address (0-31)
     input  wire [31:0] wd,          // Write Data
 );
@@ -15,18 +15,8 @@ module RegisterFile (
 
     // make output 32'b0
 
-    if(rs1_addr == 5'b00000) begin
-        assign rd1_data = 32'b0;
-    end
-    else begin
-        assign rd1_data = registers[rs1_addr];
-    end
-    if(rs2_addr == 5'b00000) begin
-        assign rd2_data = 32'b0;
-    end
-    else begin
-        assign rd2_data = registers[rs2_addr];
-    end
+    assign rd1_data = (rs1_addr == 5'd0) ? 32'b0 : registers[rs1_addr];
+    assign rd2_data = (rs2_addr == 5'd0) ? 32'b0 : registers[rs2_addr];
 
 
     always @(posedge clk) begin
