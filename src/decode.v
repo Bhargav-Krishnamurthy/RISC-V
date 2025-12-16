@@ -17,6 +17,8 @@ module decode (
     assign rs2 = instr[24:20];
     assign funct3 = instr[14:12];
     assign funct7 = instr[31:25];
+
+
     always @(*) begin
         // I-type arithmetic
         if (opcode == 7'b0010011) begin
@@ -29,7 +31,8 @@ module decode (
                 immediate = 32'b0;
             end
         end
-
+        
+        // avoiding latche issues
         else begin
             immediate = 32'b0;
         end

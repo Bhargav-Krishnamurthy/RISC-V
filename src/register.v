@@ -1,7 +1,7 @@
 module RegisterFile (
     input  wire rst, 
     input  wire clk,
-    input  wire we,          // Write Enable
+    input  wire enable,          // Write Enable
     input  wire  [4:0] rs1_addr,    // Read Port 1 Address (0-31)
     output wire [31:0] rd1_data,    // Read Port 1 Data
     input  wire  [4:0] rs2_addr,    // Read Port 2 Address (0-31)
@@ -27,7 +27,7 @@ module RegisterFile (
                 registers[i] <= 32'b0;
             end
         end 
-        else if (we && (rd_addr != 5'b00000)) begin 
+        else if (enable && (rd_addr != 5'b00000)) begin 
             registers[rd_addr] <= wd;
         end
     end
