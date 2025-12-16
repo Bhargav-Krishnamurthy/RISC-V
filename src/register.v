@@ -28,7 +28,6 @@ module RegisterFile (
             end
         end 
         else if (we && (rd_addr != 5'b00000)) begin 
-
             registers[rd_addr] <= wd;
         end
     end
